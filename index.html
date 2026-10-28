@@ -1,0 +1,234 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Професійні спільноти</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&display=swap">
+<style>
+/* Layout: the full illustration fitted (contain) in a 100vh stage, a blurred copy fills the margins; three 3D glass clouds hold the photos */
+:root{
+  --page:#eef6f5;
+  --ink-teal:#1f8a6a;
+  --ink-blue:#3a5fd0;
+  --ink-violet:#7a4fd0;
+  --ink-rose:#d6487a;
+  --ink-amber:#e07a2a;
+  --hand:"Caveat","Marck Script","Comic Sans MS",cursive;
+  color-scheme:light;
+}
+html,body{background:var(--page);margin:0;padding:0;overflow:hidden}
+:root{padding:0!important}
+
+.stage{
+  position:relative;width:100%;height:100vh;height:100dvh;overflow:hidden;
+  background:var(--page);
+}
+/* soft fill for the margins around the fitted picture */
+.stage::before{
+  content:"";position:absolute;inset:-40px;
+  background:url("bg.jpg") center/cover no-repeat;
+  filter:blur(28px) saturate(1.1);opacity:.9;
+}
+/* the whole picture, never cropped */
+.art{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:min(100vw, calc(100dvh * 1672 / 940));aspect-ratio:1672/940;
+  background:url("bg.jpg") center/contain no-repeat;
+  container-type:inline-size;
+  box-shadow:0 0 40px rgba(255,255,255,.6);
+}
+
+.cloud{
+  position:absolute;transform:translate(-50%,-50%);
+  width:32cqw;aspect-ratio:400/320;
+  border:0;background:none;padding:0;cursor:zoom-in;
+  perspective:900px;
+  animation:pop .9s cubic-bezier(.3,1.5,.5,1) both;
+}
+.cloud:nth-of-type(2){animation-delay:.15s}
+.cloud:nth-of-type(3){animation-delay:.3s}
+.float{position:absolute;inset:0;animation:drift 7s ease-in-out infinite}
+.cloud:nth-of-type(2) .float{animation-duration:8.4s;animation-delay:-2s}
+.cloud:nth-of-type(3) .float{animation-duration:7.6s;animation-delay:-4s}
+.tilt{
+  position:absolute;inset:0;transform-style:preserve-3d;
+  transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));
+  transition:transform .5s cubic-bezier(.2,.9,.3,1.2);
+}
+.cloud:hover .tilt,.cloud:focus-visible .tilt{transition-duration:.15s}
+.cloud svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.cloud:focus-visible{outline:none}
+.cloud:focus-visible .label{text-decoration:underline wavy rgba(0,0,0,.3)}
+
+.label{
+  position:absolute;left:50%;top:86%;transform:translate(-50%,-50%) translateZ(40px);
+  width:120%;text-align:center;pointer-events:none;
+  font-family:var(--hand);font-weight:700;line-height:.92;font-size:3.2cqw;
+  text-shadow:0 2px 0 #fff,0 0 .5cqw #fff,0 0 1.2cqw #fff,0 .35cqw .8cqw rgba(60,80,140,.25);
+}
+.label span{display:inline-block;transform:rotate(-3deg)}
+.label span + span{transform:rotate(-1.5deg)}
+.c-teal{color:var(--ink-teal)}.c-blue{color:var(--ink-blue)}.c-violet{color:var(--ink-violet)}
+.c-rose{color:var(--ink-rose)}.c-amber{color:var(--ink-amber)}
+
+.spark{position:absolute;width:1.1cqw;aspect-ratio:1;border-radius:50%;
+  background:radial-gradient(circle,#fff 0 30%,rgba(255,255,255,0) 70%);
+  animation:twinkle 3.2s ease-in-out infinite}
+
+@keyframes drift{0%,100%{transform:translate(0,0)}50%{transform:translate(.5cqw,-1.2cqw)}}
+@keyframes twinkle{0%,100%{opacity:.2;transform:scale(.6)}50%{opacity:1;transform:scale(1.25)}}
+@keyframes pop{from{opacity:0;transform:translate(-50%,-40%) scale(.85)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+
+/* photo viewer */
+.viewer[hidden]{display:none}
+.viewer{
+  position:fixed;inset:0;z-index:20;display:grid;place-items:center;
+  padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));
+  background:rgba(225,240,240,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+}
+.viewer figure{margin:0;display:grid;gap:10px;justify-items:center;max-width:100%}
+.viewer img{max-width:min(92vw,1400px);max-height:78vh;border-radius:18px;
+  box-shadow:0 20px 60px rgba(40,80,120,.35);border:6px solid #fff;background:#fff}
+.viewer figcaption{font-family:var(--hand);font-weight:700;font-size:clamp(26px,3vw,40px);color:var(--ink-violet);text-shadow:0 2px 0 #fff}
+.viewer button{
+  position:absolute;top:max(14px,env(safe-area-inset-top,0px));right:max(14px,env(safe-area-inset-right,0px));
+  width:44px;height:44px;border-radius:50%;border:0;background:#fff;color:#2b4b5a;
+  font-size:24px;line-height:1;cursor:pointer;box-shadow:0 4px 14px rgba(40,80,120,.25)}
+.viewer button:focus-visible{outline:3px solid var(--ink-blue);outline-offset:2px}
+
+@media (prefers-reduced-motion:reduce){
+  .cloud,.float,.spark{animation:none}
+  .tilt{transition:none}
+}
+</style>
+
+<main class="stage">
+<div class="art" role="group" aria-label="Професійні спільноти та обмін досвідом">
+
+  <button class="cloud" type="button" data-full="full1.jpg" data-cap="Професійні спільноти" style="left:18.5%;top:63%">
+    <div class="float"><div class="tilt">
+      <svg viewBox="0 0 400 320" aria-hidden="true">
+        <use href="#cl-shadow"/><use href="#cl-base" fill="url(#under1)"/>
+        <use href="#cl" fill="url(#body1)" stroke="url(#rim1)" stroke-width="3"/>
+        <use href="#cl-shade"/><use href="#cl-glint"/>
+        <use href="#win-recess"/>
+        <image href="p1.jpg" x="84" y="92" width="232" height="143" preserveAspectRatio="xMidYMid slice" clip-path="url(#win)"/>
+        <use href="#win-frame" stroke="url(#rim1)"/>
+      </svg>
+      <span class="spark" style="left:4%;top:20%"></span>
+      <span class="spark" style="right:8%;top:6%;animation-delay:-1.4s"></span>
+      <span class="label"><span class="c-blue">Професійні</span><br><span class="c-rose">спільноти</span></span>
+    </div></div>
+  </button>
+
+  <button class="cloud" type="button" data-full="full2.jpg" data-cap="Обмін досвідом" style="left:50%;top:58%">
+    <div class="float"><div class="tilt">
+      <svg viewBox="0 0 400 320" aria-hidden="true">
+        <use href="#cl-shadow"/><use href="#cl-base" fill="url(#under2)"/>
+        <use href="#cl" fill="url(#body2)" stroke="url(#rim2)" stroke-width="3"/>
+        <use href="#cl-shade"/><use href="#cl-glint"/>
+        <use href="#win-recess"/>
+        <image href="p2.jpg" x="84" y="92" width="232" height="143" preserveAspectRatio="xMidYMid slice" clip-path="url(#win)"/>
+        <use href="#win-frame" stroke="url(#rim2)"/>
+      </svg>
+      <span class="spark" style="left:10%;top:8%;animation-delay:-.6s"></span>
+      <span class="spark" style="right:4%;top:32%;animation-delay:-2s"></span>
+      <span class="label"><span class="c-violet">Обмін</span><br><span class="c-teal">досвідом</span></span>
+    </div></div>
+  </button>
+
+  <button class="cloud" type="button" data-full="full3.jpg" data-cap="Безпека й стійкість" style="left:81.5%;top:63%">
+    <div class="float"><div class="tilt">
+      <svg viewBox="0 0 400 320" aria-hidden="true">
+        <use href="#cl-shadow"/><use href="#cl-base" fill="url(#under3)"/>
+        <use href="#cl" fill="url(#body3)" stroke="url(#rim3)" stroke-width="3"/>
+        <use href="#cl-shade"/><use href="#cl-glint"/>
+        <use href="#win-recess"/>
+        <image href="p3.jpg" x="84" y="92" width="232" height="143" preserveAspectRatio="xMidYMid slice" clip-path="url(#win)"/>
+        <use href="#win-frame" stroke="url(#rim3)"/>
+      </svg>
+      <span class="spark" style="left:6%;top:24%;animation-delay:-1s"></span>
+      <span class="spark" style="right:10%;top:6%;animation-delay:-2.4s"></span>
+      <span class="label"><span class="c-teal">Безпека</span><br><span class="c-amber">й стійкість</span></span>
+    </div></div>
+  </button>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <path id="cl" d="M60 280 C20 280 4 245 18 215 C0 190 8 150 40 140 C30 100 60 66 100 72 C112 34 158 16 196 34 C224 8 276 14 292 48 C330 40 366 70 360 108 C392 120 400 160 382 186 C400 214 390 258 356 268 C346 296 310 306 284 292 C262 312 222 314 200 298 C176 314 136 312 118 294 C100 306 72 300 60 280 Z"/>
+      <filter id="blur14" x="-20%" y="-20%" width="140%" height="160%"><feGaussianBlur stdDeviation="12"/></filter>
+      <filter id="blur6" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6"/></filter>
+      <filter id="blur3"><feGaussianBlur stdDeviation="3"/></filter>
+
+      <!-- ground shadow -->
+      <use id="cl-shadow" href="#cl" transform="translate(10 22)" fill="#4a6aa8" opacity=".28" filter="url(#blur14)"/>
+      <!-- thickness: a darker copy just below the face -->
+      <use id="cl-base" href="#cl" transform="translate(0 11)"/>
+      <!-- shading on the lower half for volume -->
+      <linearGradient id="shadeG" x1="0" x2="0" y1="0" y2="1">
+        <stop offset=".45" stop-color="#6d7fc0" stop-opacity="0"/>
+        <stop offset="1" stop-color="#6d7fc0" stop-opacity=".22"/>
+      </linearGradient>
+      <use id="cl-shade" href="#cl" fill="url(#shadeG)"/>
+      <!-- glossy highlights on the top puffs -->
+      <g id="cl-glint" fill="#fff" filter="url(#blur6)">
+        <ellipse cx="190" cy="44" rx="46" ry="12" opacity=".95"/>
+        <ellipse cx="102" cy="88" rx="26" ry="9" opacity=".85"/>
+        <ellipse cx="300" cy="66" rx="30" ry="9" opacity=".85"/>
+        <ellipse cx="44" cy="160" rx="12" ry="20" opacity=".7"/>
+      </g>
+
+      <!-- photo window -->
+      <clipPath id="win"><rect x="84" y="92" width="232" height="143" rx="22"/></clipPath>
+      <rect id="win-recess" x="80" y="92" width="240" height="152" rx="26" fill="#3e4f8a" opacity=".3" filter="url(#blur3)"/>
+      <rect id="win-frame" x="84" y="92" width="232" height="143" rx="22" fill="none" stroke-width="5"/>
+
+      <radialGradient id="body1" cx="38%" cy="28%" r="80%"><stop offset="0" stop-color="#fff"/><stop offset=".55" stop-color="#eef5ff"/><stop offset="1" stop-color="#cddfff"/></radialGradient>
+      <linearGradient id="under1" x1="0" x2="1"><stop offset="0" stop-color="#9fbcf2"/><stop offset="1" stop-color="#c7a9e6"/></linearGradient>
+      <linearGradient id="rim1" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".4" stop-color="#ffc6dd"/><stop offset=".75" stop-color="#a6d4ff"/><stop offset="1" stop-color="#b9ecd9"/></linearGradient>
+
+      <radialGradient id="body2" cx="40%" cy="28%" r="80%"><stop offset="0" stop-color="#fff"/><stop offset=".55" stop-color="#f5f0ff"/><stop offset="1" stop-color="#dccfff"/></radialGradient>
+      <linearGradient id="under2" x1="0" x2="1"><stop offset="0" stop-color="#b9a2f0"/><stop offset="1" stop-color="#93d6c4"/></linearGradient>
+      <linearGradient id="rim2" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".4" stop-color="#cdb8ff"/><stop offset=".75" stop-color="#a8ead6"/><stop offset="1" stop-color="#ffd9a4"/></linearGradient>
+
+      <radialGradient id="body3" cx="40%" cy="28%" r="80%"><stop offset="0" stop-color="#fff"/><stop offset=".55" stop-color="#eefbf5"/><stop offset="1" stop-color="#c9ecdf"/></radialGradient>
+      <linearGradient id="under3" x1="0" x2="1"><stop offset="0" stop-color="#8fd2bd"/><stop offset="1" stop-color="#f2c38e"/></linearGradient>
+      <linearGradient id="rim3" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".4" stop-color="#a3e3cc"/><stop offset=".75" stop-color="#ffd3a0"/><stop offset="1" stop-color="#abc9ff"/></linearGradient>
+    </defs>
+  </svg>
+</div>
+
+<div class="viewer" id="viewer" hidden>
+  <button type="button" id="viewer-close" aria-label="Закрити">×</button>
+  <figure><img id="viewer-img" alt=""><figcaption id="viewer-cap"></figcaption></figure>
+</div>
+</main>
+
+<script>
+(function(){
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var viewer = document.getElementById('viewer'), img = document.getElementById('viewer-img'),
+      cap = document.getElementById('viewer-cap'), closeBtn = document.getElementById('viewer-close'), last = null;
+
+  document.querySelectorAll('.cloud').forEach(function(c){
+    var t = c.querySelector('.tilt');
+    if(!reduce){
+      c.addEventListener('pointermove', function(e){
+        var r = c.getBoundingClientRect();
+        var x = (e.clientX - r.left)/r.width - .5, y = (e.clientY - r.top)/r.height - .5;
+        t.style.setProperty('--ry', (x*18).toFixed(1)+'deg');
+        t.style.setProperty('--rx', (-y*14).toFixed(1)+'deg');
+      });
+      c.addEventListener('pointerleave', function(){ t.style.setProperty('--ry','0deg'); t.style.setProperty('--rx','0deg'); });
+    }
+    c.addEventListener('click', function(){
+      last = c; img.src = c.dataset.full; img.alt = c.dataset.cap; cap.textContent = c.dataset.cap;
+      viewer.hidden = false; closeBtn.focus();
+    });
+  });
+  function close(){ viewer.hidden = true; if(last) last.focus(); }
+  closeBtn.addEventListener('click', close);
+  viewer.addEventListener('click', function(e){ if(e.target === viewer) close(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && !viewer.hidden) close(); });
+})();
+</script>
+
+</body></html>
